@@ -1,0 +1,43 @@
+@use './mixins' as mixin;
+
+.db1 {
+    background-color: red;
+    border: 1px solid black;
+}
+
+.db2 {
+    background-color: green;
+    border: 1px solid black;
+}
+
+.db3 {
+    background-color: blue;
+    border: 1px solid black;
+}
+
+.db4 {
+    background-color: yellow;
+    border: 1px solid black;
+}
+
+.bor-res {
+    @include mixin.xs {
+        border: 2px solid purple;
+    }
+
+    @include mixin.sm {
+        border: 2px solid red;
+    }
+
+    @include mixin.md {
+        border: 2px solid green;
+    }
+
+    @include mixin.lg {
+        border: 2px solid blue;
+    }
+
+    @include mixin.xl {
+        border: 2px solid black;
+    }
+}
