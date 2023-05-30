@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 router.post("/newBeer", (req, res) => {
   const beer = new Beers(req.body);
+  console.log(beer)
   beer
     .save()
     .then(() => {

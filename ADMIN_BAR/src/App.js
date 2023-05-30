@@ -4,6 +4,7 @@ import Content from "./components/content/Content";
 import AddBeer from "./components/form/AddBeer";
 import UpdateBeer from "./components/form/UpdateBeer";
 import Header from "./components/header/Header";
+import './moment/fr';
 
 function App() {
 

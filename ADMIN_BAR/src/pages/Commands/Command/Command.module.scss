@@ -1,0 +1,32 @@
+.detailCommand {
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.command {
+  .img {
+    min-width: 20%;
+    border: 1px solid black;
+
+    img {
+      min-height: 20%;
+      max-height: 100px;
+      max-width: 100px;
+    }
+  }
+
+  .name {
+    width: 40%;
+    border: 1px solid black;
+  }
+
+  .count {
+    width: 20%;
+    border: 1px solid black;
+  }
+
+  .price {
+    width: 20%;
+    border: 1px solid black;
+  }
+}

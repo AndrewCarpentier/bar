@@ -2,8 +2,17 @@ const mongoose = require("mongoose");
 const config = require("./db/configDB");
 const bodyParser = require("body-parser");
 const express = require("express");
+const http = require("http");
 require("dotenv").config();
 const app = express();
+const server = http.createServer(app);
+const socketIo = require("socket.io");
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 const cors = require("cors");
 const port = 8000;
 
@@ -37,6 +46,18 @@ app.use("", foodRouter);
 app.use("", cocktailRouter);
 app.use("", paymentRouter);
 
-app.listen(port, () =>
+io.on("connection", (socket) => {
+  console.log("user connected");
+
+  socket.on('command', (value)=>{
+    socket.broadcast.emit('adminCommand', value);
+  })
+
+  socket.on("disconnect", () => {
+    console.log("user disconnect");
+  });
+});
+
+server.listen(port, () =>
   console.log(`Notre application est démarrée sur : http://localhost:${port}`)
 );

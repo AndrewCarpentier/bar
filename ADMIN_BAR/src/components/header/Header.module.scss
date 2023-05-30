@@ -1,7 +1,6 @@
 @use "../../assets/styles/mixins" as mixin;
 
 .header {
-    position: relative;
     height: 108.38px;
     padding: 10px 20px;
     box-shadow: var(--box-shadow-nav);
@@ -28,4 +27,25 @@
              font-size: 40px;
          }
      }
+}
+
+.notification{
+    min-width: 20px;
+    cursor: pointer;
+    .numberOfCommand{
+        position: absolute;
+        top: 55px;
+        right: 156px;
+        background-color: var(--gray2);
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .active{
+        background-color: var(--notification);
+    }
 }

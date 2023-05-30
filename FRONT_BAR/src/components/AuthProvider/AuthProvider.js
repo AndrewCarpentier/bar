@@ -7,6 +7,8 @@ export default function AuthProvider({ children }) {
   const [numberOfBeers, setNumberOfBeers] = useState({});
   const [sizeOfBeers, setSizeOfBeers] = useState({});
 
+  console.log(beers)
+
   function setChangeSizePrice(price, id) {
     setSizeOfBeers((beers) => {
       return {
