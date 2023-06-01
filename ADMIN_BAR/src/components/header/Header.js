@@ -1,21 +1,24 @@
 import styles from "./Header.module.scss";
 import { NavLink } from "react-router-dom";
 import { socket } from "../../Socket";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Notification from "../notification/Notification";
 
 export default function Header({ show, count }) {
   const [numberOfCommand, setNumberOfCommand] = useState(0);
   const [showNotification, setShowNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  console.log(notifications);
+
   useEffect(() => {
     function onCommand() {
       if (!showNotification) {
         setNumberOfCommand(numberOfCommand + 1);
         document.getElementById("numberCommand").classList.add(styles.active);
       }
-      setNotifications((prev) => [...prev, {text : "Nouvelle commande", date : Date.now()}]);
+      setNotifications((prev) => [
+        ...prev,
+        { text: "Nouvelle commande", date: Date.now() },
+      ]);
       return;
     }
 
@@ -24,18 +27,22 @@ export default function Header({ show, count }) {
     return () => {
       socket.off("adminCommand", onCommand);
     };
-  }, [numberOfCommand]);
+  }, [numberOfCommand, showNotification]);
 
   function onNotification() {
     setShowNotification(!showNotification);
     setNumberOfCommand(0);
     document.getElementById("numberCommand").classList.remove(styles.active);
-    console.log(notifications);
   }
 
   return (
     <div className={`d-flex align-items-center ${styles.header}`}>
-      {showNotification && <Notification notifications={notifications} />}
+      {showNotification && (
+        <Notification
+          onClickOutside={() => setShowNotification(false)}
+          notifications={notifications}
+        />
+      )}
       <div className="flex-fill">
         <h2>ADMIN BAR</h2>
       </div>
