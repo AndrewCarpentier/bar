@@ -38,7 +38,7 @@ function CheckoutForm({ onSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button disabled={isProcessing}>
+      <button className="btn btn-primary mt20" disabled={isProcessing}>
         {isProcessing ? "en cours de traitement" : "Payez maintenant"}
       </button>
       {message}

@@ -73,9 +73,13 @@ function Commands() {
       </div>
       {commands.length ? (
         <>
+        <div className={`${styles.titleTab} d-flex`}>
+          <div className={`${styles.id} d-flex justify-content-center align-items-center`}>Id</div>
+          <div className={`${styles.price} d-flex justify-content-center align-items-center`}>Price</div>
+          <div className={`${styles.status} d-flex justify-content-center align-items-center`}>Status</div>
+        </div>
           {commands.map((command) => (
             <div className={`${styles.container}`} key={command._id}>
-              <div>Command id : {command._id}</div>
               <Command
                 command={command}
                 commands={commandsBackup}

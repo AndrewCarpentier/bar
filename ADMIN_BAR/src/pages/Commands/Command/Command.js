@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function Command({ command, commands, setCommands, nav }) {
   const [showDetail, setShowDetail] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  console.log(command);
   useEffect(() => {
     let price = 0;
     command.beers.map((beer) => {
@@ -37,29 +37,51 @@ function Command({ command, commands, setCommands, nav }) {
   }
 
   return (
-    <div>
-      {!showDetail ? (
-        <div onClick={onDetail} className={`${styles.detailCommand}`}>
-          Voir detail
+    <div className={`${styles.container}`}>
+      <div className={`${styles.info} d-flex`}>
+        <div
+          className={`${styles.id} d-flex justify-content-center align-items-center`}
+        >
+          COMMAND ID : {command._id}
         </div>
-      ) : (
+        <div
+          className={`${styles.price} d-flex justify-content-center align-items-center`}
+        >
+          {totalPrice}€
+        </div>
+
+        <div
+          className={`${styles.status} d-flex justify-content-center align-items-center`}
+        >
+          {command.validate ? (
+            <span>
+              <i className={`${styles.dot} ${styles.success}`} />
+              Servi
+            </span>
+          ) : (
+            <span>
+              <i className={`${styles.dot} ${styles.error}`} />
+              Non servi
+            </span>
+          )}
+        </div>
+        <div className="d-flex justify-content-center align-items-center mr20">
+          {!command.validate && (
+            <button className={`btn btn-primary`} onClick={onServe}>
+              Servir
+            </button>
+          )}
+        </div>
+        <div className="d-flex justify-content-center align-items-center">
+          <button className="btn btn-primary" onClick={onDetail}>
+            <i className="fas fa-chevron-down" />
+          </button>
+        </div>
+      </div>
+      {showDetail && (
         <div>
-          <div onClick={onDetail} className={`${styles.detailCommand}`}>
-            Retirer detail
-          </div>
-          <div className="d-flex">
-            <div className={`${styles.toServe}`}>
-              Command déjà servi : {command.validate ? "oui" : "non"}
-            </div>
-            {!command.validate && (
-              <button className={`btn btn-primary`} onClick={onServe}>
-                Servir
-              </button>
-            )}
-          </div>
-          <div>Prix totale de la commande : {totalPrice}€ </div>
           <ul>
-            <li className={`${styles.command} d-flex`}>
+            <li className={`${styles.command} ${styles.titleTab} d-flex`}>
               <div className={`${styles.img} d-flex justify-content-center`}>
                 Image
               </div>
@@ -74,7 +96,7 @@ function Command({ command, commands, setCommands, nav }) {
               </div>
             </li>
             {command.beers.map((c) => (
-              <li key={c._id} className={`${styles.command} d-flex`}>
+              <li key={c._id} className={`${styles.command} ${styles.itemsTab} d-flex`}>
                 <div className={`${styles.img} justify-content-center d-flex`}>
                   <img src={c.beer.img} alt="beer" />
                 </div>
