@@ -38,6 +38,7 @@ const softRouter = require("./routes/soft");
 const foodRouter = require("./routes/food");
 const cocktailRouter = require("./routes/cocktail");
 const paymentRouter = require("./routes/payment");
+const commandRouter = require("./routes/command");
 app.use("", beersRouter);
 app.use("", beersRouter);
 app.use("", adminRouter);
@@ -45,13 +46,39 @@ app.use("", softRouter);
 app.use("", foodRouter);
 app.use("", cocktailRouter);
 app.use("", paymentRouter);
+app.use("", commandRouter);
+
+const CommandSchema = require("./schemas/commandSchema");
+const Command = mongoose.model("Command", CommandSchema);
+const BeerSchema = require("./schemas/beerSchema");
+const Beer = mongoose.model("Beer", BeerSchema);
 
 io.on("connection", (socket) => {
   console.log("user connected");
-
-  socket.on('command', (value)=>{
-    socket.broadcast.emit('adminCommand', value);
-  })
+  socket.on("command", (value) => {
+    const beers = [];
+    value.map((v) => {
+      const beer = new Beer({
+        _id: v.id,
+        name: v.name,
+        price: v.price,
+        img: v.image,
+      });
+      beers.push({ beer : beer, count: v.count, price: v.price });
+    });
+    const command = new Command({
+      beers
+    });
+    command
+      .save()
+      .then(() => {
+        console.log("command enregistrer");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    socket.broadcast.emit("adminCommand", command);
+  });
 
   socket.on("disconnect", () => {
     console.log("user disconnect");

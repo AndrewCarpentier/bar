@@ -1,3 +1,17 @@
 .container{
     height: 20%;
 }
+
+.nav{
+    cursor: pointer;
+    padding: 5px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    &:hover{
+        background-color: var(--primary);
+    }
+}
+
+.active{
+    background-color: var(--gray2);
+}
