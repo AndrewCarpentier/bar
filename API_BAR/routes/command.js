@@ -5,7 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get('/getAllCommands', (req,res)=>{
-    Command.find({}).then((commands)=>{
+    Command.find({}).sort({"_id" : -1}).then((commands)=>{
         res.json(commands)
     })
 });

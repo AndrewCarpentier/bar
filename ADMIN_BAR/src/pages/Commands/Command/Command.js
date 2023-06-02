@@ -66,11 +66,11 @@ function Command({ command, commands, setCommands, nav }) {
           )}
         </div>
         <div className="d-flex justify-content-center align-items-center mr20">
-          {!command.validate && (
-            <button className={`btn btn-primary`} onClick={onServe}>
+          {!command.validate ? (
+            <button className={`btn btn-primary ${styles.px100}`} onClick={onServe}>
               Servir
             </button>
-          )}
+          ) : (<div className={styles.px100}></div>)}
         </div>
         <div className="d-flex justify-content-center align-items-center">
           <button className="btn btn-primary" onClick={onDetail}>
