@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context";
 export default function Homepage() {
   const URLParams = new URLSearchParams(window.location.search);
   const paymentSuccess = URLParams.get("paymentSuccess");
   const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
+  const {resetCommand} = useContext(AuthContext)
 
   useEffect(() => {
     if (paymentSuccess) {
       setShowPaymentSuccess(true);
+      resetCommand()
       setTimeout(() => {
         setShowPaymentSuccess(false);
       }, 3000);

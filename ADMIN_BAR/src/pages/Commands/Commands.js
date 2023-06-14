@@ -2,9 +2,12 @@ import styles from "./Commands.module.scss";
 import { socket } from "../../Socket";
 import { useEffect, useState } from "react";
 import { getAllCommands } from "../../apis/commands";
+import useSound from "use-sound";
+import commandSound from "../../assets/sound/sound1.mp3";
 import Command from "./Command/Command";
 
 function Commands() {
+  const [play] = useSound(commandSound, { volume: 1 });
   const [commandsBackup, setCommandsBackup] = useState([]);
   const [commands, setCommands] = useState([]);
   const [nav, setNav] = useState("commandsToServe");
@@ -16,6 +19,7 @@ function Commands() {
     });
 
     function onCommand(value) {
+      play();
       setCommandsBackup((prev) => [...prev, value]);
       return setCommands((prev) => [...prev, value]);
     }
@@ -73,11 +77,23 @@ function Commands() {
       </div>
       {commands.length ? (
         <>
-        <div className={`${styles.titleTab} d-flex`}>
-          <div className={`${styles.id} d-flex justify-content-center align-items-center`}>Id</div>
-          <div className={`${styles.price} d-flex justify-content-center align-items-center`}>Price</div>
-          <div className={`${styles.status} d-flex justify-content-center align-items-center`}>Status</div>
-        </div>
+          <div className={`${styles.titleTab} d-flex`}>
+            <div
+              className={`${styles.id} d-flex justify-content-center align-items-center`}
+            >
+              Id
+            </div>
+            <div
+              className={`${styles.price} d-flex justify-content-center align-items-center`}
+            >
+              Price
+            </div>
+            <div
+              className={`${styles.status} d-flex justify-content-center align-items-center`}
+            >
+              Status
+            </div>
+          </div>
           {commands.map((command) => (
             <div className={`${styles.container}`} key={command._id}>
               <Command

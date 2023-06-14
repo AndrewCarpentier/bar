@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 function Command({ command, commands, setCommands, nav }) {
   const [showDetail, setShowDetail] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-  console.log(command);
   useEffect(() => {
     let price = 0;
     command.beers.map((beer) => {
